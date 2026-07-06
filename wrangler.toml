@@ -1,0 +1,25 @@
+name = "airdesk"
+main = "src/index.ts"
+compatibility_date = "2026-04-21"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+
+[build]
+command = "node build.mjs"
+
+[[durable_objects.bindings]]
+name = "AIRDESK_FRONTIER"
+class_name = "AirDeskFrontier"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["AirDeskFrontier"]
+
+[[workflows]]
+name = "AIRDESK_WORKFLOW"
+binding = "AIRDESK_WORKFLOW"
+
+[[r2_buckets]]
+name = "AIRDESK_ARTIFACTS"
+binding = "AIRDESK_ARTIFACTS"
+bucket_name = "airdesk-artifacts"

@@ -1,0 +1,26 @@
+{
+  "name": "airdesk",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Ambient agency with physical authority — sign one irreversible action, not a session",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "build": "node build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "hono": "^4.12.19",
+    "svelte-hono": "^0.1.2",
+    "svelte": "^5.45.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250410.0",
+    "typescript": "^5.7.2",
+    "wrangler": "^4.92.0",
+    "esbuild": "^0.25.10",
+    "esbuild-svelte": "^0.9.5"
+  }
+}
