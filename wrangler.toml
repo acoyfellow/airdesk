@@ -1,5 +1,5 @@
 name = "airdesk"
-main = "src/index.ts"
+main = "build/worker.bundled.mjs"
 compatibility_date = "2026-04-21"
 compatibility_flags = ["nodejs_compat"]
 workers_dev = true
@@ -18,8 +18,8 @@ new_classes = ["AirDeskFrontier"]
 [[workflows]]
 name = "AIRDESK_WORKFLOW"
 binding = "AIRDESK_WORKFLOW"
+class_name = "AirDeskWorkflow"
 
 [[r2_buckets]]
-name = "AIRDESK_ARTIFACTS"
 binding = "AIRDESK_ARTIFACTS"
 bucket_name = "airdesk-artifacts"

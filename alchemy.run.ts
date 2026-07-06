@@ -1,10 +1,7 @@
 // alchemy.run.ts — deploy path for airdesk.
 // Usage: alchemy deploy | alchemy destroy
-// Requires `alchemy` package: bun add -d alchemy
 
-import type { AlchemyConfig } from 'alchemy';
-
-const config: AlchemyConfig = {
+const config = {
   name: 'airdesk',
   worker: {
     entry: './build/worker.bundled.mjs',
@@ -13,8 +10,8 @@ const config: AlchemyConfig = {
     durableObjects: {
       AIRDESK_FRONTIER: { className: 'AirDeskFrontier' },
     },
-    workflows: ['AIRDESK_WORKFLOW'],
-    r2Buckets: ['AIRDESK_ARTIFACTS'],
+    workflows: [{ binding: 'AIRDESK_WORKFLOW', className: 'AirDeskWorkflow' }],
+    r2Buckets: [{ binding: 'AIRDESK_ARTIFACTS', bucketName: 'airdesk-artifacts' }],
   },
   routes: [
     { pattern: 'airdesk.coey.dev', zone: 'coey.dev' },

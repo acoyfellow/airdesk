@@ -7,7 +7,6 @@ const result = await buildHonoSvelte({
   components: {
     airdesk: '../site/AirDesk.svelte',
   },
-  skipWorkerBundle: true,
 });
 
 console.log(`✓ worker  ${(result.workerBytes / 1024).toFixed(1)} KB`);

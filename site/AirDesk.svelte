@@ -35,26 +35,70 @@
     }, 2000);
   }
 
+  function base64UrlToArray(s) {
+    s = s.replace(/-/g, '+').replace(/_/g, '/');
+    while (s.length % 4) s += '=';
+    return Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  }
+
+  function arrayToHex(arr) {
+    return Array.from(arr).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
   async function signAction() {
-    const cred = await navigator.credentials.create({
-      publicKey: {
-        challenge: new Uint8Array(32),
-        rp: { name: 'airdesk', id: 'airdesk.coey.dev' },
-        user: {
-          id: new Uint8Array(16),
-          name: 'operator',
-          displayName: 'Operator',
-        },
-        pubKeyCredParams: [{ type: 'public-key', alg: -7 }],
-        timeout: 60000,
+    const challengeRes = await fetch(`/api/challenge/${taskId}`);
+    const challengeData = await challengeRes.json();
+    if (challengeData.error) { alert(challengeData.error); return; }
+
+    const publicKey = {
+      challenge: base64UrlToArray(challengeData.challenge),
+      rp: { name: challengeData.rpName, id: challengeData.rpId },
+      user: {
+        id: crypto.getRandomValues(new Uint8Array(16)),
+        name: 'operator',
+        displayName: 'Operator',
       },
-    });
-    const res = await fetch(`/api/sign/task-${taskId}`, {
+      pubKeyCredParams: [{ type: 'public-key', alg: -7 }],
+      timeout: 60000,
+      authenticatorSelection: { userVerification: 'required' },
+    };
+
+    let credential;
+    try {
+      credential = await navigator.credentials.create({ publicKey });
+    } catch (e) {
+      alert('Passkey creation failed: ' + e.message);
+      return;
+    }
+
+    const cred = credential;
+    const authData = new Uint8Array(cred.response.getAuthenticatorData());
+    const clientData = new Uint8Array(cred.response.getClientDataJSON());
+    const sig = new Uint8Array(cred.response.signature);
+    const publicKeyCose = new Uint8Array(cred.response.getPublicKey());
+
+    const registerRes = await fetch(`/api/register/${taskId}`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ signature: 'webauthn-sig', signer: 'passkey' }),
+      body: JSON.stringify({
+        credentialId: arrayToHex(new Uint8Array(cred.rawId)),
+        publicKeyCose: Array.from(publicKeyCose),
+        signCount: 0,
+      }),
     });
-    const data = await res.json();
+
+    const signRes = await fetch(`/api/sign/${taskId}`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        credentialId: arrayToHex(new Uint8Array(cred.rawId)),
+        clientDataJSON: arrayToHex(clientData),
+        authenticatorData: arrayToHex(authData),
+        signature: arrayToHex(sig),
+        signer: 'passkey',
+      }),
+    });
+    const data = await signRes.json();
     status = data.status;
   }
 

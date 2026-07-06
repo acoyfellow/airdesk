@@ -18,9 +18,10 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250410.0",
-    "typescript": "^5.7.2",
-    "wrangler": "^4.92.0",
+    "alchemy": "^0.93.12",
     "esbuild": "^0.25.10",
-    "esbuild-svelte": "^0.9.5"
+    "esbuild-svelte": "^0.9.5",
+    "typescript": "^5.7.2",
+    "wrangler": "^4.92.0"
   }
 }

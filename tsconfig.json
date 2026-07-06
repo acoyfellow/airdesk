@@ -12,6 +12,6 @@
     "verbatimModuleSyntax": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*.ts", "site/**/*.ts", "build.mjs"],
+  "include": ["src/**/*.ts", "site/**/*.ts", "build.mjs", "alchemy.run.ts"],
   "exclude": ["node_modules", "dist", "build"]
 }

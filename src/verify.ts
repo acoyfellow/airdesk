@@ -1,5 +1,3 @@
-// Verification handler — proves a signed manifest matches the artifact.
-
 import type { Context } from 'hono';
 
 export async function verifyHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -10,7 +8,6 @@ export async function verifyHandler(c: Context<{ Bindings: Env }>): Promise<Resp
   }
   const manifest = JSON.parse(await manifestObj.text());
 
-  // Verify artifact hash matches current artifact
   const artifactObj = await c.env.AIRDESK_ARTIFACTS.get(`artifacts/${id}.json`);
   if (!artifactObj) {
     return c.json({ verified: false, error: 'artifact not found' }, 404);
@@ -19,12 +16,17 @@ export async function verifyHandler(c: Context<{ Bindings: Env }>): Promise<Resp
   const artifactHash = await computeHash(JSON.stringify(artifact));
 
   const verified = artifactHash === manifest.artifactHash;
+  const expired = manifest.expiry ? Date.now() > manifest.expiry : false;
+  const isDevSigner = manifest.signer && typeof manifest.signer === 'string' && manifest.signer.startsWith('DEV_SIGNER:');
+
   return c.json({
-    verified,
+    verified: verified && !expired,
     manifest,
     currentArtifactHash: artifactHash,
     expectedArtifactHash: manifest.artifactHash,
-    expired: manifest.expiry ? Date.now() > manifest.expiry : false,
+    expired,
+    isDevSigner,
+    status: manifest.status || 'unknown',
   });
 }
 
