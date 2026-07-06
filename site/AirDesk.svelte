@@ -110,7 +110,7 @@
 </script>
 
 <main>
-  <div class="eyebrow">[airdesk]</div>
+  <div class="eyebrow">airdesk</div>
   <h1>ambient agency with physical authority</h1>
 
   {#if status === 'idle'}
@@ -138,7 +138,7 @@
     </div>
   {:else if status === 'awaiting_signature'}
     <div class="signature-panel">
-      <div class="eyebrow">[requires signature]</div>
+      <div class="eyebrow">requires signature</div>
       <h2>Review before approving</h2>
       <dl>
         <dt>Task</dt>
@@ -193,6 +193,12 @@
     font-size: 0.75rem;
     color: #f6821f;
     margin-bottom: 0.5rem;
+  }
+  .eyebrow::before {
+    content: '[ ';
+  }
+  .eyebrow::after {
+    content: ' ]';
   }
   h1 {
     font-size: 2rem;
