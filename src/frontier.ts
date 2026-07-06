@@ -1,5 +1,6 @@
 import { DurableObject } from 'cloudflare:workers';
 import { policy } from '../airdesk.policy';
+import { coseEc2P256ToRawPublicKey, derEcdsaSignatureToRaw } from './webauthn';
 
 export interface FrontierState {
   taskId: string;
@@ -303,7 +304,8 @@ export default class AirDeskFrontier extends DurableObject<Env> {
 
   private async verifySignature(publicKeyCose: Uint8Array, data: Uint8Array, sig: Uint8Array): Promise<boolean> {
     try {
-      const rawKey = this.coseToRaw(publicKeyCose);
+      const rawKey = coseEc2P256ToRawPublicKey(publicKeyCose);
+      const rawSig = derEcdsaSignatureToRaw(sig);
       const key = await crypto.subtle.importKey(
         'raw',
         rawKey,
@@ -311,20 +313,9 @@ export default class AirDeskFrontier extends DurableObject<Env> {
         false,
         ['verify'],
       );
-      return await crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, key, sig, data);
+      return await crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, key, rawSig, data);
     } catch {
       return false;
     }
-  }
-
-  private coseToRaw(cose: Uint8Array): Uint8Array {
-    if (cose[0] !== 0x02) {
-      throw new Error('only uncompressed EC2 keys supported');
-    }
-    const raw = new Uint8Array(65);
-    raw[0] = 0x04;
-    raw.set(cose.slice(1, 33), 1);
-    raw.set(cose.slice(33, 65), 33);
-    return raw;
   }
 }
