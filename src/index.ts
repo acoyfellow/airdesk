@@ -18,13 +18,13 @@ app.get(
   '/',
   svelteRenderer(AirDesk, {
     hydrateAs: 'airdesk',
-    title: 'airdesk — ambient agency with physical authority',
+    title: 'airdesk — give an AI a job, approve the one step it cannot undo',
     head: `
-<meta name="description" content="Run a north star sessionlessly, then ask for one signed human decision bound to the exact irreversible action." />
+<meta name="description" content="Tell an AI what to do, let it work in the background, then approve the exact action with your phone or passkey. No babysitting a chat." />
 <meta name="theme-color" content="#0b1118" />
 <link rel="canonical" href="https://airdesk.coey.dev" />
-<meta property="og:title" content="airdesk — ambient agency with physical authority" />
-<meta property="og:description" content="Run a north star sessionlessly, then ask for one signed human decision bound to the exact irreversible action." />
+<meta property="og:title" content="airdesk — give an AI a job, approve the one step it cannot undo" />
+<meta property="og:description" content="Tell an AI what to do, let it work in the background, then approve the exact action with your phone or passkey. No babysitting a chat." />
 <meta property="og:url" content="https://airdesk.coey.dev" />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="https://airdesk.coey.dev/share.svg" />
@@ -32,8 +32,8 @@ app.get(
 <meta property="og:image:height" content="630" />
 <meta property="og:image:type" content="image/svg+xml" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="airdesk — ambient agency with physical authority" />
-<meta name="twitter:description" content="Run a north star sessionlessly, then ask for one signed human decision bound to the exact irreversible action." />
+<meta name="twitter:title" content="airdesk — give an AI a job, approve the one step it cannot undo" />
+<meta name="twitter:description" content="Tell an AI what to do, let it work in the background, then approve the exact action with your phone or passkey. No babysitting a chat." />
 <meta name="twitter:image" content="https://airdesk.coey.dev/share.svg" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="manifest" href="/manifest.json" />
@@ -158,10 +158,10 @@ const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100
 </svg>`;
 
 const manifest = {
-  name: 'airdesk — ambient agency with physical authority',
+  name: 'airdesk — give an AI a job, approve the one step it cannot undo',
   short_name: 'airdesk',
   description:
-    'Run a north star sessionlessly, then ask for one signed human decision bound to the exact irreversible action.',
+    'Tell an AI what to do, let it work in the background, then approve the exact action with your phone or passkey.',
   start_url: '/',
   display: 'standalone',
   background_color: '#0b1118',
@@ -201,15 +201,15 @@ const shareSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630"
   <rect width="1200" height="630" fill="none" stroke="rgba(174,196,216,0.14)" stroke-width="1"/>
   <g transform="translate(80,80)"><rect width="80" height="80" rx="16" fill="#0b1118" stroke="#f6821f" stroke-width="2"/><text x="40" y="54" font-family="Inter,sans-serif" font-size="40" font-weight="800" fill="#f6821f" text-anchor="middle">A</text></g>
   <text x="180" y="120" font-family="Inter,sans-serif" font-size="48" font-weight="800" fill="#f7f9fb" letter-spacing="-0.03em">airdesk</text>
-  <text x="180" y="156" font-family="IBM Plex Mono,monospace" font-size="20" fill="#9baaba" letter-spacing="0.18em">[ AMBIENT AGENCY WITH PHYSICAL AUTHORITY ]</text>
+  <text x="180" y="156" font-family="IBM Plex Mono,monospace" font-size="20" fill="#9baaba" letter-spacing="0.18em">[ GIVE AN AI A JOB, APPROVE THE ONE STEP IT CANNOT UNDO ]</text>
   <line x1="80" y1="200" x2="1120" y2="200" stroke="rgba(174,196,216,0.14)" stroke-width="1"/>
   <text x="80" y="260" font-family="Inter,sans-serif" font-size="28" font-weight="600" fill="#f7b53b" letter-spacing="-0.02em">The pain</text>
   <text x="80" y="300" font-family="Inter,sans-serif" font-size="22" fill="#9baaba">Agents either trap humans in chat supervision or receive</text>
   <text x="80" y="336" font-family="Inter,sans-serif" font-size="22" fill="#9baaba">dangerously broad standing authority. The human should</text>
   <text x="80" y="372" font-family="Inter,sans-serif" font-size="22" fill="#9baaba">authorize consequences, not watch labor.</text>
-  <text x="80" y="440" font-family="Inter,sans-serif" font-size="28" font-weight="600" fill="#f7b53b" letter-spacing="-0.02em">The promise</text>
-  <text x="80" y="480" font-family="Inter,sans-serif" font-size="22" fill="#f6821f">Run a north star sessionlessly across cloud and local</text>
-  <text x="80" y="516" font-family="Inter,sans-serif" font-size="22" fill="#f6821f">surfaces, then ask for one signed human decision bound</text>
-  <text x="80" y="552" font-family="Inter,sans-serif" font-size="22" fill="#f6821f">to the exact irreversible action.</text>
+  <text x="80" y="440" font-family="Inter,sans-serif" font-size="28" font-weight="600" fill="#f7b53b" letter-spacing="-0.02em">The fix</text>
+  <text x="80" y="480" font-family="Inter,sans-serif" font-size="22" fill="#f6821f">Tell it what to do, let it work in the background,</text>
+  <text x="80" y="516" font-family="Inter,sans-serif" font-size="22" fill="#f6821f">then approve the exact action with your phone</text>
+  <text x="80" y="552" font-family="Inter,sans-serif" font-size="22" fill="#f6821f">or passkey. No babysitting a chat.</text>
   <text x="1120" y="600" font-family="IBM Plex Mono,monospace" font-size="14" fill="#9baaba" text-anchor="end">airdesk.coey.dev</text>
 </svg>`;

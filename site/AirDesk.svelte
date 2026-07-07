@@ -111,16 +111,16 @@
 
 <main>
   <div class="eyebrow">airdesk</div>
-  <h1>ambient agency with physical authority</h1>
+  <h1>Give an AI a job, approve the one step it cannot undo</h1>
 
   {#if status === 'idle'}
     <form onsubmit={(e) => { e.preventDefault(); submitTask(); }}>
       <label>
-        <span>North Star</span>
+        <span>What should the AI do?</span>
         <input bind:value={northStar} placeholder="e.g. deploy the latest build to production" />
       </label>
       <label>
-        <span>Powers</span>
+        <span>What can it do?</span>
         <select multiple bind:value={selectedPowers}>
           <option value="deploy">deploy</option>
           <option value="publish">publish</option>
@@ -129,21 +129,21 @@
           <option value="modify_production">modify_production</option>
         </select>
       </label>
-      <button type="submit">Start Task</button>
+      <button type="submit">Start</button>
     </form>
   {:else if status === 'running'}
     <div class="status">
-      <p>Task running: <strong>{taskId}</strong></p>
-      <p>Executing north star...</p>
+      <p>Working on it: <strong>{taskId}</strong></p>
+      <p>The AI is running in the background...</p>
     </div>
   {:else if status === 'awaiting_signature'}
     <div class="signature-panel">
-      <div class="eyebrow">requires signature</div>
+      <div class="eyebrow">needs your approval</div>
       <h2>Review before approving</h2>
       <dl>
         <dt>Task</dt>
         <dd>{taskId}</dd>
-        <dt>Artifact Hash</dt>
+        <dt>What you're approving</dt>
         <dd class="mono">{artifactHash}</dd>
         <dt>Powers</dt>
         <dd>{powers.join(', ')}</dd>
@@ -151,25 +151,25 @@
         <dd>{expiry}</dd>
       </dl>
       <div class="actions">
-        <button class="approve" onclick={signAction}>Approve with Passkey</button>
+        <button class="approve" onclick={signAction}>Approve with passkey</button>
         <button class="deny" onclick={denyAction}>Deny</button>
       </div>
     </div>
   {:else if status === 'signed'}
     <div class="status success">
-      <p>Action signed. Executing...</p>
-      <p class="mono">Manifest stored in R2</p>
+      <p>Approved. Executing...</p>
+      <p class="mono">Receipt stored in R2</p>
     </div>
   {:else if status === 'denied'}
     <div class="status denied">
-      <p>Action denied. Loop is resumable.</p>
-      <button onclick={() => { status = 'idle'; taskId = ''; }}>Start New Task</button>
+      <p>Denied. You can try again with a different job.</p>
+      <button onclick={() => { status = 'idle'; taskId = ''; }}>Start New</button>
     </div>
   {:else if status === 'executed'}
     <div class="status success">
-      <p>Action executed successfully.</p>
+      <p>Done.</p>
       <p class="mono">Artifact: {artifactHash}</p>
-      <button onclick={() => { status = 'idle'; taskId = ''; }}>Start New Task</button>
+      <button onclick={() => { status = 'idle'; taskId = ''; }}>Start New</button>
     </div>
   {/if}
 </main>
