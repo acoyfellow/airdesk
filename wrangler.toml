@@ -23,3 +23,6 @@ class_name = "AirDeskWorkflow"
 [[r2_buckets]]
 binding = "AIRDESK_ARTIFACTS"
 bucket_name = "airdesk-artifacts"
+[[routes]]
+pattern = "airdesk.coey.dev"
+custom_domain = true
