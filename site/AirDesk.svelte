@@ -172,6 +172,8 @@
       <button onclick={() => { status = 'idle'; taskId = ''; }}>Start New</button>
     </div>
   {/if}
+
+  <p class="note">A working demo. The approval step here uses a built-in test signer, not real production signing.</p>
 </main>
 
 <style>
@@ -185,6 +187,13 @@
     max-width: 640px;
     margin: 4rem auto;
     padding: 0 1rem;
+  }
+  .note {
+    max-width: 640px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+    font-size: 0.8rem;
+    color: #9baaba;
   }
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
