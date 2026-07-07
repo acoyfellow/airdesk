@@ -9,3 +9,4 @@ build/
 bundles.generated.ts
 *.log
 .DS_Store
+bundles.generated.ts

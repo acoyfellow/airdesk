@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { svelteRenderer, attachSvelteRoutes } from 'svelte-hono';
-import { bundles } from '../bundles.generated';
+import { bundles } from './bundles.generated';
 // @ts-expect-error esbuild-svelte emits a Svelte component module
 import AirDesk from '../site/AirDesk.svelte';
 import { verifyHandler } from './verify';
